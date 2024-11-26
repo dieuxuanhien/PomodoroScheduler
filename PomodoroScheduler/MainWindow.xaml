@@ -1,0 +1,73 @@
+﻿<Window x:Class="PomodoroScheduler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PomodoroScheduler"
+        mc:Ignorable="d"
+        Margin="0"
+        Padding="0"
+        ResizeMode="NoResize"
+        Title="Pomodoro Scheduler" Height="750" Width="750"
+        >
+
+    <!-- Style for TabItems -->
+    
+    <Grid Background="#C36868">
+        <TabControl Height="750" Width="750" Background="Transparent" BorderBrush="{x:Null}" Padding="0">
+            <TabControl.Resources>
+                <!-- Style for TabItem -->
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Grid>
+                                    <!-- Tab Header -->
+                                    <Border Name="Border" 
+                                            Background="#D9D9D9" 
+                                            CornerRadius="0"
+                                            Padding="0">
+                                        <ContentPresenter Content="{TemplateBinding Header}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <!-- Selected Tab -->
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#B3BCBB" />
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="#B3BCBB" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="FontFamily" Value="./Fonts/#Roboto Mono Bold"/>
+                                    </Trigger>
+                                    <!-- Unselected Tab -->
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="#D9D9D9" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="FontFamily" Value="./Fonts/#Roboto Mono Medium"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            
+            
+            <!--TIMER TAB-->
+            <TabItem Name="TimerTab" Header="TIMER"  FontSize="24"  Padding="0" Height="75" Width="373" VerticalAlignment="Top" Margin="-3,-2,3,0">
+            
+            </TabItem>
+
+
+            <!--SCHEDULER TAB-->
+            <TabItem Name="ScheduleTab" Header="SCHEDULES" FontSize="24 " Margin="-3,-2,3,0" Padding="0" Height="75" Width="373"  VerticalAlignment="Top" BorderBrush="{x:Null}">
+                
+            </TabItem>
+
+
+        </TabControl>
+
+
+    </Grid>
+
+</Window>
