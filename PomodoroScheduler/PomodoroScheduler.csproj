@@ -10,16 +10,16 @@
 
   <ItemGroup>
     <None Remove="Fonts\RobotoMono-Medium.ttf" />
-    <None Remove="RobotoMono-Medium.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Fonts\RobotoMono-Medium.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="RobotoMono-Medium.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

@@ -4,15 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PomodoroScheduler"
-        mc:Ignorable="d"
+        mc:Ignorable=""
         Margin="0"
         Padding="0"
-        ResizeMode="NoResize"
-        Title="Pomodoro Scheduler" Height="750" Width="750"
+        ResizeMode="CanMinimize"
+        
+        Title="Pomodoro Scheduler" Height="750" Width="750" PreviewMouseDown="Window_PreviewMouseDown" WindowStartupLocation="CenterScreen"
+        
         >
-
+    <Window.Resources>
+        
+    </Window.Resources>
     <!-- Style for TabItems -->
-    
+
     <Grid Background="#C36868">
         <TabControl Height="750" Width="750" Background="Transparent" BorderBrush="{x:Null}" Padding="0">
             <TabControl.Resources>
@@ -51,17 +55,111 @@
                 </Style>
             </TabControl.Resources>
 
-            
-            
+
+
             <!--TIMER TAB-->
-            <TabItem Name="TimerTab" Header="TIMER"  FontSize="24"  Padding="0" Height="75" Width="373" VerticalAlignment="Top" Margin="-3,-2,3,0">
-            
+            <TabItem Name="TimerTab" Header="TIMER"  FontSize="24" Height="75" Width="373" VerticalAlignment="Top" Margin="-3,-2,3,0">
+                <!--GRID UNDER TAB-->
+                <Grid Margin="-1,-3,-1,15" Width="750">
+                    <!--OuterBox-->
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="3,59,3,3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="526"/>
+                            <RowDefinition Height="43"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="596"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="4" CornerRadius="20" Background="#B3BCBB" >
+                            <!--InsideBox-->
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="426" Width="453">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="261"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!--CountDownBox-->
+                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="24" Padding="30,30,30,30" >
+                                    <StackPanel >
+                                        <Label Height="28" FontFamily="./Fonts/#Roboto Mono Medium" FontSize="24" HorizontalAlignment="Center" Padding="0" Content="{Binding TimerViewModel.Phase}"></Label>
+
+
+                                        <Label Height="84" FontFamily="./Fonts/#Roboto Mono Medium" FontSize="80" VerticalAlignment="Top" Padding="0" HorizontalAlignment="Center" Content="{Binding TimerViewModel.TimeLeft}"/>
+                                        <WrapPanel HorizontalAlignment="Center" Margin="0,30,0,0" >
+                                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="12" Background="White" Width="93" Height="52"> 
+                                                <Button x:Name="StartPauseButton" Background="Transparent" Content="Start" FontFamily="./Fonts/#Roboto Mono" FontSize="24" Click="StartPauseEvent" BorderBrush="{x:Null}"/>
+                                                
+                                            </Border>
+                                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="12" Background="White" Width="93" Height="52" Margin="10,0,0,0">
+                                                <Button x:Name="ResetButton" Background="Transparent" Content="Reset" FontFamily="./Fonts/#Roboto Mono" FontSize="24" Click="ResetEvent" BorderBrush="{x:Null}"/>
+
+                                            </Border>
+                                        </WrapPanel>
+                                       
+                                    </StackPanel>
+                                </Border>
+                                <!--2 Time Control Box Panel-->
+                                <DockPanel Grid.Row="1" VerticalAlignment="Bottom">
+                                    <!--Break Length Box-->
+                                    <Border Width="200" Height="150" BorderBrush="Black" BorderThickness="2" CornerRadius="16" Background="#323232" VerticalAlignment="Bottom" Padding="10,14,10,14">
+                                        <StackPanel>
+                                            <DockPanel Background="#99BCC0" Width="176" Height="80" >
+                                                <Button x:Name="ShortBreakTimeDecreaseButton" DockPanel.Dock="Left"  Width="29" Height="63" FontSize="48" FontFamily="./Fonts/#Roboto Mono Medium" Content ="-" Foreground="White" Background="Transparent" BorderThickness="0" Margin="20,0,0,0" Padding="-2,0,0,0" />
+                                                <Button x:Name="ShortBreakTimeIncreaseButton" DockPanel.Dock="Right" Width="29" Height="63" FontSize="48" FontFamily="./Fonts/#Roboto Mono Medium" Content ="+" Foreground="White" Background="Transparent" BorderThickness="0" Margin="0,0,20,0" />
+                                                <TextBox  x:Name="BreakLengthTextBox" Background="Transparent" BorderBrush="{x:Null}" Height="42" HorizontalAlignment="Center" FontSize="32" FontFamily="./Fonts/#Roboto Mono Medium" Text="{Binding TimerViewModel.ShortBreakTime, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Padding="0,0,0,0"/>
+                                            </DockPanel>
+                                            <Label Height="32" HorizontalAlignment="Center" Margin="0,5,0,0" Content="Break Length" FontSize="24" FontFamily="./Fonts/#Roboto Mono" Foreground="White" Padding="0,0,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <!--Cycle Time Box-->
+                                    <Border Width="200" Height="150" BorderBrush="Black" BorderThickness="2" CornerRadius="16" Background="#323232" VerticalAlignment="Bottom" Padding="10,14,10,14" HorizontalAlignment="Right">
+                                        <StackPanel>
+                                            <DockPanel Background="#99BCC0" Width="176" Height="80" >
+                                                <Button x:Name="SessionTimeDecreaseButton" DockPanel.Dock="Left"  Width="29" Height="63" FontSize="48" FontFamily="./Fonts/#Roboto Mono Medium" Content ="-" Foreground="White" Background="Transparent" BorderThickness="0" Margin="20,0,0,0" Padding="-2,0,0,0" />
+                                                <Button x:Name="SessionTimeIncreaseButton" DockPanel.Dock="Right" Width="29" Height="63" FontSize="48" FontFamily="./Fonts/#Roboto Mono Medium" Content ="+" Foreground="White" Background="Transparent" BorderThickness="0" Margin="0,0,20,0" />
+                                                <TextBox x:Name="SessionTimeTextBox" Background ="Transparent" BorderBrush="{x:Null}" Height="42" FontSize="32" FontFamily="./Fonts/#Roboto Mono Medium"  Padding="0,0,0,0" HorizontalAlignment="Center" Text="{Binding TimerViewModel.SessionTime,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </DockPanel>
+                                            <Label Height="32" HorizontalAlignment="Center" Margin="0,5,0,0" Content="Session Time" FontSize="24" FontFamily="./Fonts/#Roboto Mono" Foreground="White" Padding="0,0,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DockPanel>
+                            </Grid>
+                        </Border>
+
+                        <Label Grid.Row="1" Content= "&lt; WORKING ON &gt;" FontFamily="./Fonts/#Roboto Mono" HorizontalAlignment="Center" FontSize="26"/>
+                    </Grid>
+
+
+                </Grid>
+                
             </TabItem>
 
 
             <!--SCHEDULER TAB-->
             <TabItem Name="ScheduleTab" Header="SCHEDULES" FontSize="24 " Margin="-3,-2,3,0" Padding="0" Height="75" Width="373"  VerticalAlignment="Top" BorderBrush="{x:Null}">
-                
+                <!--GRID UNDER TAB-->
+                <Grid Margin="-1,-3,-1,15" Width="750">
+                    <!--OuterBox-->
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="3,59,3,3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="526"/>
+                            <RowDefinition Height="43"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="596"/>
+                        </Grid.ColumnDefinitions>
+                    
+
+                        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="4" CornerRadius="20" Background="#B3BCBB" Padding="30,50,30,50" >
+                            <!--InsideBox-->
+                            <Border>
+                                
+                            </Border>
+                        </Border>
+                    </Grid>
+
+
+                </Grid>
             </TabItem>
 
 
