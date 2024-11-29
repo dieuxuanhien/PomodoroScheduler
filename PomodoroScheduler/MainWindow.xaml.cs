@@ -24,13 +24,25 @@ namespace PomodoroScheduler
         {
             _mainModel = new MainViewModel();
             DataContext = _mainModel;
+
+            _mainModel.TaskViewModel.TaskList.Add(new ViewModels.Task("IT008888888", 2));
+            _mainModel.TaskViewModel.TaskList.Add(new ViewModels.Task("IT33", 2));
+            _mainModel.TaskViewModel.TaskList.Add(new ViewModels.Task("IT008888888", 2));
+   
             InitializeComponent();
             
            
         }
+        
 
+
+
+
+
+        //TIMER TAB EVENTS AND FUNCTIONS
         private void StartPauseEvent(object sender, RoutedEventArgs e)
         {
+
             if (StartPauseButton.Content.ToString() == "Pause")
             {
                 StartPauseButton.Content = "Resume";
@@ -50,6 +62,11 @@ namespace PomodoroScheduler
             
         }
 
+
+
+
+
+        //WINDOW RANGE EVENTS
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (Keyboard.FocusedElement is TextBox)

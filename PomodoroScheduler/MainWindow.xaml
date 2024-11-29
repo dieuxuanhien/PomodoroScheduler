@@ -62,10 +62,10 @@
                 <!--GRID UNDER TAB-->
                 <Grid Margin="-1,-3,-1,15" Width="750">
                     <!--OuterBox-->
-                    <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="3,59,3,3">
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="3,39,3,3">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="526"/>
-                            <RowDefinition Height="43"/>
+                            <RowDefinition Height="63"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="596"/>
@@ -126,7 +126,30 @@
                             </Grid>
                         </Border>
 
-                        <Label Grid.Row="1" Content= "&lt; WORKING ON &gt;" FontFamily="./Fonts/#Roboto Mono" HorizontalAlignment="Center" FontSize="26"/>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock" >
+                                    <Setter Property="FontFamily" Value="./Fonts/#Roboto Mono"/>
+                                    <Setter Property="FontSize" Value="24"/>
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <TextBlock Width="600" TextAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="{Binding TaskNameDisplay}"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Text" Value="{Binding CyclesLeftDisplay}"/>
+                                            </Trigger>
+                                                     
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            
+                           
+                        </StackPanel>
                     </Grid>
 
 

@@ -11,13 +11,31 @@ namespace PomodoroScheduler.ViewModels
     public class TimerViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public Action CycleCompleted;
         private DispatcherTimer _timer;
         private TimeSpan _timeLeft;
 
         // Properties for session, short break, and long break durations
-        public int SessionTime { get; set; }
-        public int ShortBreakTime { get; set; }
+        private int _sessionTime;
+        private int _shortBreakTime;
+        public int SessionTime
+        {
+            get => _sessionTime;
+            set
+            {
+                _sessionTime = value;
+                OnPropertyChanged(nameof(SessionTime));
+            }
+        }
+        public int ShortBreakTime
+        {
+            get => _shortBreakTime;
+            set
+            {
+                _shortBreakTime = value;
+                OnPropertyChanged(nameof(ShortBreakTime));
+            }
+        }
         public int LongBreakTime => ShortBreakTime * 3;
 
         private int _cycleCount;
@@ -104,7 +122,8 @@ namespace PomodoroScheduler.ViewModels
         {
             if (_phase == "Session")
             {
-                CycleCount++;
+                
+                CycleComplete();
                 if (CycleCount % 4 == 0)
                 {
                     _phase = "Long Break";
@@ -126,6 +145,12 @@ namespace PomodoroScheduler.ViewModels
             OnPropertyChanged(nameof(TimeLeft));
         }
 
+        protected void CycleComplete()
+        {
+            CycleCount++;
+            CycleCompleted?.Invoke();
+
+        }
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
