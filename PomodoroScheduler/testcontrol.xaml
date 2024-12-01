@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="PomodoroScheduler.testcontrol"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PomodoroScheduler"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid  Height="63">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42"/>
+                <RowDefinition Height="21"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border HorizontalAlignment="Stretch" Height="42" Grid.Row ="0" Padding="0" Background="#B3BCBB" BorderBrush="Black" BorderThickness="4" CornerRadius="20">
+                <WrapPanel>
+                    <Label Width="412" Height="36"  Margin="12,-2,0,0" FontFamily="./Fonts/#Roboto Mono" FontSize="20" Content="Text Box inputname that is really long and cant handle"/>
+
+                </WrapPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

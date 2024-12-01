@@ -12,6 +12,7 @@ namespace PomodoroScheduler.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public Action CycleCompleted;
+        
         private DispatcherTimer _timer;
         private TimeSpan _timeLeft;
 
@@ -23,7 +24,7 @@ namespace PomodoroScheduler.ViewModels
             get => _sessionTime;
             set
             {
-                _sessionTime = value;
+                _sessionTime = Math.Clamp(value, 1, 599);
                 OnPropertyChanged(nameof(SessionTime));
             }
         }
@@ -32,7 +33,7 @@ namespace PomodoroScheduler.ViewModels
             get => _shortBreakTime;
             set
             {
-                _shortBreakTime = value;
+                _shortBreakTime = Math.Clamp(value,1,599);
                 OnPropertyChanged(nameof(ShortBreakTime));
             }
         }
@@ -62,7 +63,7 @@ namespace PomodoroScheduler.ViewModels
 
         public string TimeLeft
         {
-            get => _timeLeft.ToString(@"mm\:ss");
+            get =>_timeLeft.Hours>0 ? _timeLeft.ToString(@"h\:mm\:ss") : _timeLeft.ToString(@"mm\:ss");
             private set
             {
                 OnPropertyChanged(nameof(TimeLeft));
@@ -113,6 +114,7 @@ namespace PomodoroScheduler.ViewModels
             else
             {
                 _timer.Stop();
+                
                 HandlePhaseChange();
                 _timer.Start();
             }

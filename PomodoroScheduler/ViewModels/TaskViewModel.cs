@@ -29,9 +29,10 @@ namespace PomodoroScheduler.ViewModels
         get => _cyclesleft;
         set
         {
+            
             if (_cyclesleft != value)
             {
-                _cyclesleft = value;
+                _cyclesleft = Math.Clamp(value, 0,99);
                 OnPropertyChanged(nameof(CyclesLeft));  // Notify when CyclesLeft changes
             }
         }

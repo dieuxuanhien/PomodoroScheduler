@@ -74,6 +74,7 @@ namespace PomodoroScheduler.ViewModels
         {
             TaskViewModel.DecrementCurrentTaskCycle();
             OnPropertyChanged(nameof(TaskViewModel));
+           
             
         }
         protected void OnPropertyChanged(string propertyName)
