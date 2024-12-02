@@ -26,10 +26,7 @@ namespace PomodoroScheduler
             _mainModel = new MainViewModel();
             DataContext = _mainModel;
 
-            _mainModel.TaskViewModel.TaskList.Add(new ViewModels.Task("IT008888888", 2));
-            _mainModel.TaskViewModel.TaskList.Add(new ViewModels.Task("IT33", 2));
-            _mainModel.TaskViewModel.TaskList.Add(new ViewModels.Task("IT008888888", 2));
-
+           
             _mainModel.TimerViewModel.PropertyChanged += TimerViewModel_PropertyChanged;
             InitializeComponent();
             
@@ -122,7 +119,7 @@ namespace PomodoroScheduler
         }
         private void TaskNameBoxCorrectionEvent(object sender, TextChangedEventArgs e)
         {
-            if (TaskNameBox.Text.Length >25) TaskNameBox.Text= TaskNameBox.Text.Substring(0,25);
+            if (TaskNameBox.Text.Length >30) TaskNameBox.Text= TaskNameBox.Text.Substring(0,30);
         }
 
         private void CyclesLeftBoxCorrectionEvent(object sender, TextChangedEventArgs e)
@@ -156,20 +153,25 @@ namespace PomodoroScheduler
         {
             if (e.PropertyName == nameof(MainViewModel.TimerViewModel.Phase))
             {
-                this.Dispatcher.Invoke(() =>
-                {
-                    if (this.WindowState == WindowState.Minimized)
-                    {
-                        this.WindowState = WindowState.Normal; // Restore the window from minimized state
-                    }
-
-                    // Bring the window to the foreground
-                    this.Activate();  // Set focus to the window
-                    this.Topmost = true;  // Temporarily set the window as topmost
-                    this.Topmost = false; // Revert topmost status to avoid permanent topmost
-                });
+                WindowStateTopMost();
 
             }
+        }
+
+        private void WindowStateTopMost()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                if (this.WindowState == WindowState.Minimized)
+                {
+                    this.WindowState = WindowState.Normal; // Restore the window from minimized state
+                }
+
+                // Bring the window to the foreground
+                this.Activate();  // Set focus to the window
+                this.Topmost = true;  // Temporarily set the window as topmost
+                this.Topmost = false; // Revert topmost status to avoid permanent topmost
+            });
         }
 
     }

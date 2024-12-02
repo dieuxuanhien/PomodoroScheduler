@@ -9,10 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\RobotoMono-Bold.ttf" />
     <None Remove="Fonts\RobotoMono-Medium.ttf" />
+    <None Remove="Fonts\RobotoMono-Regular.ttf" />
+    <None Remove="Sounds\notification.wav" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Sounds\notification.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\RobotoMono-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\RobotoMono-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Fonts\RobotoMono-Medium.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

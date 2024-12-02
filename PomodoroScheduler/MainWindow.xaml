@@ -14,11 +14,25 @@
         
         >
     <Window.Resources>
-
+        <!--Style for BackGround Grid-->
+        <Style x:Key="DynamicBackgroundStyle" TargetType="Grid">
+            <Setter Property="Background" Value="White" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TimerViewModel.Phase}" Value="SESSION">
+                    <Setter Property="Background" Value="#C36868" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TimerViewModel.Phase}" Value="SHORT BREAK">
+                    <Setter Property="Background" Value="#38858A" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TimerViewModel.Phase}" Value="LONG BREAK">
+                    <Setter Property="Background" Value="#397097" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <!-- Style for TabItems -->
 
-    <Grid Background="#C36868">
+    <Grid Style="{DynamicResource DynamicBackgroundStyle}">
         <TabControl Height="750" Width="750" Background="Transparent" BorderBrush="{x:Null}" Padding="0">
             <TabControl.Resources>
                 <!-- Style for TabItem -->
@@ -54,6 +68,8 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
+                
+               
             </TabControl.Resources>
 
 
@@ -87,14 +103,26 @@
 
                                         <Label Margin="0,-2,0,0" Height="86" FontFamily="./Fonts/#Roboto Mono Medium" FontSize="80" VerticalAlignment="Top" Padding="0" HorizontalAlignment="Center" Content="{Binding TimerViewModel.TimeLeft}"/>
                                         <WrapPanel HorizontalAlignment="Center" Margin="0,30,0,0" >
-                                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="12" Background="White" Width="93" Height="52">
-                                                <Button x:Name="StartPauseButton" Background="Transparent" Content="Start" FontFamily="./Fonts/#Roboto Mono" FontSize="24" Click="StartPauseEvent" BorderBrush="{x:Null}"/>
+                                            <WrapPanel.Resources>
+                                                <Style TargetType="Button">
+                                                    
+                                                    <Setter Property="FontFamily" Value="./Fonts/#Roboto Mono"/>
+                                                    <Setter Property="FontSize" Value="24"/>
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Style.Resources>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="BorderBrush" Value="Black"/>
+                                                            <Setter Property="BorderThickness" Value="1"/>
+                                                            <Setter Property="CornerRadius" Value="12"/>
+                                                            <Setter Property="Background" Value="White"/>
+                                                        </Style>
+                                                    </Style.Resources>
+                                                </Style>
+                                            </WrapPanel.Resources>
+                                            <Button x:Name="StartPauseButton" Width="93" Height="52" Background="Transparent" Content="Start" Click="StartPauseEvent" />
+                                            <Button x:Name="ResetButton" Width="93" Height="52" Margin="10,0,0,0"  Content="Reset" Click="ResetEvent"/>
 
-                                            </Border>
-                                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="12" Background="White" Width="93" Height="52" Margin="10,0,0,0">
-                                                <Button x:Name="ResetButton" Background="Transparent" Content="Reset" FontFamily="./Fonts/#Roboto Mono" FontSize="24" Click="ResetEvent" BorderBrush="{x:Null}"/>
-
-                                            </Border>
+                                           
                                         </WrapPanel>
 
                                     </StackPanel>

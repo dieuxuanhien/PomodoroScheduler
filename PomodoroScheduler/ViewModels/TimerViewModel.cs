@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace PomodoroScheduler.ViewModels
@@ -108,13 +110,13 @@ namespace PomodoroScheduler.ViewModels
         {
             if (_timeLeft.TotalSeconds > 0)
             {
-                _timeLeft -= TimeSpan.FromSeconds(59);
+                _timeLeft -= TimeSpan.FromSeconds(1);
                 OnPropertyChanged(nameof(TimeLeft));
             }
             else
             {
                 _timer.Stop();
-                
+                PlayNotificationSound();
                 HandlePhaseChange();
                 _timer.Start();
             }
@@ -152,6 +154,25 @@ namespace PomodoroScheduler.ViewModels
             CycleCount++;
             CycleCompleted?.Invoke();
 
+        }
+
+        private void PlayNotificationSound()
+        {
+            try
+            {
+               
+                SoundPlayer player = new SoundPlayer();
+                player.SoundLocation = "Sounds/notification.wav";
+
+
+                player.Play();
+               
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Audio file error: " + ex.Message);
+            }
         }
         protected void OnPropertyChanged(string propertyName)
         {
