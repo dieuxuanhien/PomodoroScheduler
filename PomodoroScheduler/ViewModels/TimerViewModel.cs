@@ -62,7 +62,20 @@ namespace PomodoroScheduler.ViewModels
                 OnPropertyChanged(nameof(Phase));
             }
         }
-
+        public TimeSpan PhaseTime
+        {
+            get
+            {
+                if (_phase == "Session") return TimeSpan.FromMinutes(SessionTime);
+                else if (_phase == "Short Break") return TimeSpan.FromMinutes(ShortBreakTime);
+                else if (_phase == "Long Break") return TimeSpan.FromMinutes(LongBreakTime);
+                return TimeSpan.Zero;
+            }
+            private set
+            {
+                OnPropertyChanged(nameof(PhaseTime));
+            }
+        }
         public string TimeLeft
         {
             get =>_timeLeft.Hours>0 ? _timeLeft.ToString(@"h\:mm\:ss") : _timeLeft.ToString(@"mm\:ss");
@@ -71,6 +84,16 @@ namespace PomodoroScheduler.ViewModels
                 OnPropertyChanged(nameof(TimeLeft));
             }
         }
+
+        public double ProgressRate
+        {
+            get => 1- _timeLeft.TotalSeconds / PhaseTime.TotalSeconds;
+            private set
+            {
+                OnPropertyChanged(nameof(ProgressRate));
+            }
+        }
+
 
         public TimerViewModel()
         {

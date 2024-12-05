@@ -23,6 +23,7 @@ namespace PomodoroScheduler
         public MainViewModel _mainModel;
         public MainWindow()
         {
+           
             _mainModel = new MainViewModel();
             DataContext = _mainModel;
 

@@ -12,6 +12,7 @@
     <None Remove="Fonts\RobotoMono-Bold.ttf" />
     <None Remove="Fonts\RobotoMono-Medium.ttf" />
     <None Remove="Fonts\RobotoMono-Regular.ttf" />
+    <None Remove="pomodoro.png" />
     <None Remove="Sounds\notification.wav" />
   </ItemGroup>
 
@@ -34,6 +35,7 @@
     <Resource Include="Fonts\RobotoMono-Medium.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="pomodoro.png" />
   </ItemGroup>
 
   <ItemGroup>

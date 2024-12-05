@@ -4,15 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PomodoroScheduler"
-        xmlns:vr="clr-namespace:PomodoroScheduler.ValidationRules"
+        Icon="/pomodoro.png"
         mc:Ignorable="d"
         Margin="0"
         Padding="0"
         ResizeMode="CanMinimize"
-       
+        
         Title="Pomodoro Scheduler" Height="750" Width="750" PreviewMouseDown="Window_PreviewMouseDown" WindowStartupLocation="CenterScreen"
         
         >
+    <Window.TaskbarItemInfo >
+        <TaskbarItemInfo Description="Pomodoro" ProgressValue="{Binding TimerViewModel.ProgressRate}" ProgressState="Normal"/>
+    </Window.TaskbarItemInfo>
     <Window.Resources>
         <!--Style for BackGround Grid-->
         <Style x:Key="DynamicBackgroundStyle" TargetType="Grid">
