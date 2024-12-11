@@ -1,5 +1,6 @@
-﻿using PomodoroScheduler.Behaviors;
+﻿
 using PomodoroScheduler.ViewModels;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
@@ -31,7 +32,7 @@ namespace PomodoroScheduler
            
             _mainModel.TimerViewModel.PropertyChanged += TimerViewModel_PropertyChanged;
             InitializeComponent();
-            ListViewDragDropBehavior.AttachDragDropBehavior(TaskListView);
+            
             
            
         }
@@ -141,6 +142,84 @@ namespace PomodoroScheduler
             }
         }
 
+        //inside listview events :
+        private object _draggedItem;
+
+        
+       
+
+        private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListView listView)
+            {
+                // Get the item being dragged
+                var position = e.GetPosition(listView);
+                _draggedItem = GetItemUnderMouse(listView, position);
+                var clickedElement = VisualTreeHelper.HitTest(listView, position)?.VisualHit;
+
+                // Prevent drag operation if the clicked element is a Button or descendant
+                if (IsClickOnInteractiveElement(clickedElement))
+                {
+                    _draggedItem = null; // Prevent dragging
+                    return;
+                }
+
+
+
+                if (_draggedItem != null)
+                {
+                    DragDrop.DoDragDrop(listView, _draggedItem, DragDropEffects.Move);
+                }
+            }
+        }
+
+        private void ListView_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.Move;
+            e.Handled = true;
+        }
+
+        private void ListView_Drop(object sender, DragEventArgs e)
+        {
+            if (sender is ListView listView && _draggedItem != null)
+            {
+                var itemsSource = listView.ItemsSource as ObservableCollection<ViewModels.Task>;
+                if (itemsSource == null) return;
+
+                var targetItem = GetItemUnderMouse(listView, e.GetPosition(listView));
+                if (targetItem == null || targetItem == _draggedItem) return;
+
+                int oldIndex = itemsSource.IndexOf((ViewModels.Task)_draggedItem);
+                int newIndex = itemsSource.IndexOf((ViewModels.Task)targetItem);
+
+                if (oldIndex >= 0 && newIndex >= 0 && oldIndex != newIndex)
+                {
+                    itemsSource.Move(oldIndex, newIndex);
+                }
+
+                _draggedItem = null; // Reset the dragged item
+            }
+        }
+
+        private object GetItemUnderMouse(ListView listView, Point position)
+        {
+            HitTestResult hitTestResult = VisualTreeHelper.HitTest(listView, position);
+            if (hitTestResult?.VisualHit == null)
+                return null;
+
+            ListViewItem container = ItemsControl.ContainerFromElement(listView, hitTestResult.VisualHit) as ListViewItem;
+            return container?.Content;
+        }
+        private bool IsClickOnInteractiveElement(DependencyObject clickedElement)
+        {
+            while (clickedElement != null)
+            {
+                if (clickedElement is Button || clickedElement is TextBox || clickedElement is CheckBox)
+                    return true;
+                clickedElement = VisualTreeHelper.GetParent(clickedElement);
+            }
+            return false;
+        }
 
         //WINDOW RANGE EVENTS
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)

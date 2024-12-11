@@ -125,7 +125,8 @@ namespace PomodoroScheduler.ViewModels
             // Notify that the CurrentTask may have changed if the first item was added, removed, or replaced
             if (e.Action == NotifyCollectionChangedAction.Add ||
                 e.Action == NotifyCollectionChangedAction.Remove ||
-                e.Action == NotifyCollectionChangedAction.Replace)
+                e.Action == NotifyCollectionChangedAction.Replace ||
+                e.Action == NotifyCollectionChangedAction.Move)
             {
                 OnPropertyChanged(nameof(CurrentTask));
             }

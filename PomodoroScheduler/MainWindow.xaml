@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PomodoroScheduler"
-        xmlns:bh="clr-namespace:PomodoroScheduler.Behaviors"
+
         Icon="/pomodoro.png"
         mc:Ignorable="d"
         Margin="0"
@@ -269,10 +269,11 @@
                                               ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                                               x:Name="TaskListView" Margin="0,25,0,0" 
                                               BorderBrush="{x:Null}" 
-                                              ItemsSource="{Binding TaskViewModel.TaskList}"
+                                              ItemsSource="{Binding TaskViewModel.TaskList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                               AllowDrop="True"
-                                              
-                                                
+                                              PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown"
+                                              Drop="ListView_Drop"
+                                              DragOver="ListView_DragOver"
                                               >
                                         <ListView.ItemContainerStyle>
                                                 <Style TargetType="ListViewItem">
