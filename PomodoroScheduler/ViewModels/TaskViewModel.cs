@@ -63,6 +63,7 @@ namespace PomodoroScheduler.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ObservableCollection<Task> _taskList;
+
         public ObservableCollection<Task> TaskList
         {
             get => _taskList;

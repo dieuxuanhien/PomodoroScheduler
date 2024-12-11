@@ -1,4 +1,5 @@
-﻿using PomodoroScheduler.ViewModels;
+﻿using PomodoroScheduler.Behaviors;
+using PomodoroScheduler.ViewModels;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
@@ -30,11 +31,11 @@ namespace PomodoroScheduler
            
             _mainModel.TimerViewModel.PropertyChanged += TimerViewModel_PropertyChanged;
             InitializeComponent();
+            ListViewDragDropBehavior.AttachDragDropBehavior(TaskListView);
             
            
         }
         
-
 
 
 
@@ -155,7 +156,7 @@ namespace PomodoroScheduler
             if (e.PropertyName == nameof(MainViewModel.TimerViewModel.Phase))
             {
                 WindowStateTopMost();
-
+                this.NavigationTab.SelectedIndex = 0;
             }
         }
 
